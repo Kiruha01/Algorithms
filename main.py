@@ -1,7 +1,7 @@
 ORDER = ['a', 'b']
 
 
-def step(digits, permutation):
+def step(digits, perm):
     counts = dict(zip(ORDER, [0]*len(ORDER)))
     for d in digits:
         counts[d] += 1
@@ -14,14 +14,34 @@ def step(digits, permutation):
         prev = position
         counts[d] = position
 
-    new_permutation = [0] * len(permutation)
-    for idx in permutation:
+    new_permutation = [0] * len(perm)
+    for idx in perm:
         digit = digits[idx]
         new_permutation[counts[digit]] = idx
         counts[digit] += 1
 
     return new_permutation
-#
-# with open('input.txt') as filein:
-#     N, M, K = map(int, filein.readline().split())
-#     for i in range(M):
+
+
+def main():
+    with open('input.txt', 'r') as filein:
+        # N - число строк, M - длина строк, K - число фаз итераций
+        N, M, K = map(int, filein.readline().split())
+        lines = []
+        for i in range(M):
+            line = filein.readline().rstrip('\n')
+            lines.insert(0, line)
+
+    permutation = [i for i in range(N)]
+
+    for i, line in zip(range(K), lines):
+        permutation = step(line, permutation)
+
+    with open('output.txt', 'w') as fileout:
+        for i, _ in enumerate(permutation):
+            permutation[i] = str(permutation[i] + 1)
+        fileout.write(' '.join(permutation))
+
+
+if __name__ == '__main__':
+    main()
