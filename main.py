@@ -13,10 +13,14 @@ def step(digits, permutation):
         temp = counts[d]
         prev = position
         counts[d] = position
-    return counts
 
-    # new_permutation = [0,0,0]
-    # for i in permutation:
+    new_permutation = [0] * len(permutation)
+    for idx in permutation:
+        digit = digits[idx]
+        new_permutation[counts[digit]] = idx
+        counts[digit] += 1
+
+    return new_permutation
 #
 # with open('input.txt') as filein:
 #     N, M, K = map(int, filein.readline().split())
