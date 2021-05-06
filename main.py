@@ -1,4 +1,4 @@
-ORDER = ['a', 'b']
+ORDER = [chr(i) for i in range(ord('a'), ord('z')+1)]
 
 
 def step(digits, perm):
